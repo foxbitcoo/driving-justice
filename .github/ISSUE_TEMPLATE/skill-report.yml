@@ -1,0 +1,75 @@
+name: Skill behavior report
+description: Report a public-safe bad case, workflow failure, or unexpected result
+title: "[Skill report] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请勿上传原始交通视频、清晰车牌、人脸、身份证、手机号、Cookie、Token 或 `ledger.xlsx`。
+        请使用虚构占位值描述问题。
+
+  - type: input
+    id: version
+    attributes:
+      label: Skill version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: request
+    attributes:
+      label: Public-safe request summary
+      description: 用不含个人信息的方式概括你想完成什么。
+    validations:
+      required: true
+
+  - type: textarea
+    id: capability
+    attributes:
+      label: Host and model capability
+      description: 说明宿主、模型，以及图片/视频输入或本地抽帧路径是否可用；不要填写账号信息。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: dropdown
+    id: gate
+    attributes:
+      label: Workflow stage
+      options:
+        - Model capability preflight
+        - Step 0-2 media scan and target selection
+        - Step 3 legal classification
+        - Step 4-5 plate and evidence verification
+        - Step 6 channel lookup
+        - Step 7 statement generation
+        - Step 8 official form prefill
+        - Step 9 local Excel ledger
+        - Installation or update
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy confirmation
+      options:
+        - label: I removed real plates, faces, contact details, credentials, private files, and private media.
+          required: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "行车正义"
+  short_description: "整理交通违法证据并预填举报材料"
+  default_prompt: "Use $driving-justice to review the traffic video or images I provide, keep all human confirmation gates, and prepare public-safe evidence and report fields."
