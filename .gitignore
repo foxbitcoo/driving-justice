@@ -14,6 +14,7 @@ ledger.xlsx
 .env
 .env.*
 private/
+outputs/
 .private/
 local-tests/
 testdata-private/

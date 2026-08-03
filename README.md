@@ -16,6 +16,38 @@
 - 预填官方举报表单，但把实名、验证码、真实性承诺和最终提交留给用户。
 - 在提交前新增本地 `ledger.xlsx` 记录，提交后再用举报单号更新同一条记录。
 
+## 最小输入输出
+
+- **输入**：一段本地视频，或一张/多张本地图片。
+- **输出**：一个本地 `.xlsx` 文件，候选事件每行一条，证据图片直接嵌入单元格。
+
+试水模式可只交付 `analysis.xlsx`；用户后续要正式举报时，再进入法条核验、渠道定位、官方表单预填和 `ledger.xlsx` 提交前/后更新流程。
+
+## 可选低成本链路
+
+对本人拍摄或已取得授权的素材，可用以下本地链路生成候选结果：
+
+```text
+本地 ffmpeg 抽帧
+  → Doubao Seed 2.0 Lite 完整时序扫描
+  → 候选窗口 4 fps 密集原始帧复核
+  → DeepSeek V4 Flash 整理
+  → 冲突/无法解析时才用 V4 Pro
+  → analysis.xlsx
+```
+
+该链路需要 `ffmpeg`、`ARK_API_KEY` 和 `DEEPSEEK_API_KEY`：
+
+```bash
+python scripts/run_low_cost_pipeline.py \
+  --input /absolute/path/to/clip.mp4 \
+  --output /absolute/path/to/analysis.xlsx \
+  --city "义乌" \
+  --source-note "博主已授权测试"
+```
+
+脚本不会接受自由文本里的车牌。只有视觉模型返回结构化车牌判断，且“前/后任意一面全部清晰、轨迹连续、车牌帧和行为帧引用均有效”同时通过，再经过一次不带候选号码的独立重读逐字一致时，车牌才会进入试跑 Excel，并明确标记“待人工复核”。视频至少要有两张清晰车牌帧读数一致；单张图片则独立重读该图。正式举报前仍须由用户确认。完整字段和离线测试方式见 [templates/analysis-schema.md](templates/analysis-schema.md) 与 [references/low-cost-model-route.md](references/low-cost-model-route.md)。
+
 ## 工作流
 
 ```mermaid

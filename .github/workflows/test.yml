@@ -29,4 +29,9 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Compile scripts
-        run: python -m py_compile scripts/append_ledger.py scripts/update_ledger.py
+        run: >-
+          python -m py_compile
+          scripts/append_ledger.py
+          scripts/update_ledger.py
+          scripts/build_analysis_workbook.py
+          scripts/run_low_cost_pipeline.py
